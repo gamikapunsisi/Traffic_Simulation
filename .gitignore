@@ -1,0 +1,48 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# macOS system files
+.DS_Store
+
+# Logs
+*.log
+
+# IDE specific
+.vscode/
+.idea/
+
+# Byte-compiled / optimized / DLL files
+*.so
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Build directories
+build/
+dist/
+*.egg-info/
+
+# Cache
+.cache/
+
+# Tkinter app output screenshots or temp files
+*.png
+*.jpg
+
+# SQLite or local DB files
+*.db
+
+# Environment variables
+.env
+*.env
+
+# pip wheel files
+*.whl
