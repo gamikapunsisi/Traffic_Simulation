@@ -1,15 +1,12 @@
+#!/usr/bin/env python3
 """
 Two independent max-flow implementations:
-- edmonds_karp(graph, s, t): BFS augmenting path
-- dinic(graph, s, t): Dinic's algorithm with level graph + blocking flow
-
-Graph format used in both functions:
+- edmonds_karp(graph, s, t): BFS augmenting path (returns max flow)
+- edmonds_karp_with_flows(graph, s, t): returns (max_flow, flow_dict)
+Graph format:
 graph: dict: {u: {v: capacity, ...}, ...}
-Nodes are strings (e.g., "A", "B", ...)
-Both functions DO NOT modify the input graph (they work on internal copies).
 """
 import collections
-import copy
 
 def _build_residual(graph):
     # Build residual adjacency with reverse edges initialized to 0
@@ -24,11 +21,9 @@ def _build_residual(graph):
     return res
 
 def edmonds_karp(graph, s, t):
-    # Work on a copy of the graph
     res = _build_residual(graph)
     flow = 0
     while True:
-        # BFS to find shortest augmenting path
         parent = {s: None}
         q = collections.deque([s])
         while q:
@@ -42,7 +37,7 @@ def edmonds_karp(graph, s, t):
             if t in parent:
                 break
         if t not in parent:
-            break  # no augmenting path
+            break
         # find bottleneck
         v = t
         bottleneck = float('inf')
@@ -58,8 +53,58 @@ def edmonds_karp(graph, s, t):
             res[v][u] += bottleneck
             v = u
         flow += bottleneck
-    return flow
+    return int(flow)
 
+def edmonds_karp_with_flows(graph, s, t):
+    """
+    Runs Edmonds-Karp and returns (max_flow, flow_dict)
+    flow_dict maps (u,v) for original edges to the flow sent (integer).
+    """
+    # Work on a residual copy
+    res = _build_residual(graph)
+    flow = 0
+    while True:
+        parent = {s: None}
+        q = collections.deque([s])
+        while q:
+            u = q.popleft()
+            for v,cap in res[u].items():
+                if cap > 0 and v not in parent:
+                    parent[v] = u
+                    if v == t:
+                        break
+                    q.append(v)
+            if t in parent:
+                break
+        if t not in parent:
+            break
+        # find bottleneck
+        v = t
+        bottleneck = float('inf')
+        while v != s:
+            u = parent[v]
+            bottleneck = min(bottleneck, res[u][v])
+            v = u
+        # apply
+        v = t
+        while v != s:
+            u = parent[v]
+            res[u][v] -= bottleneck
+            res[v][u] += bottleneck
+            v = u
+        flow += bottleneck
+
+    # compute flow on each original edge as original_cap - residual_cap
+    flow_dict = {}
+    for u in graph:
+        for v, orig_cap in graph[u].items():
+            residual_cap = res.get(u, {}).get(v, 0)
+            sent = orig_cap - residual_cap
+            # ensure integer
+            flow_dict[(u, v)] = int(sent) if sent >= 0 else 0
+    return int(flow), flow_dict
+
+# keep dinic function unchanged (returns flow only)
 def dinic(graph, s, t):
     res = _build_residual(graph)
     INF = 10**9
@@ -89,7 +134,6 @@ def dinic(graph, s, t):
             it[u] += 1
         return 0
 
-    # Prebuild adjacency lists for iteration order
     while True:
         level = bfs_level()
         if not level:
@@ -102,21 +146,9 @@ def dinic(graph, s, t):
             if not f:
                 break
             pushed += f
-        if pushed == 0:
-            break
-        # continue until no more level graphs
-        # accumulate pushed in flow variable
-        # we need to count total pushed across level graphs
-        # We'll simply add pushed and continue
-        # But make sure next iteration recomputes level graph
-        # We'll accumulate to flow outside
-        # To make simpler, do a separate accumulation:
-        # Instead, accumulate flow per outer loop
-        # (we already have pushed)
-        # To follow structure, we will add to flow and continue
-        # But we need flow variable outside; so modify:
         if 'flow' not in locals():
             flow = 0
         flow += pushed
-        # Continue; outer while re-evaluates level graph
-    return locals().get('flow', 0)
+        if pushed == 0:
+            break
+    return int(locals().get('flow', 0))
