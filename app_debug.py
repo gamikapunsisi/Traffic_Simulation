@@ -813,13 +813,8 @@ def main():
         app.mainloop()
         log("Application closed")
     except Exception as e:
-        # Ensure we log the fatal error and show a dialog if possible.
         log(f"Fatal error: {e}")
-        try:
-            messagebox.showerror("Fatal Error", f"Application failed to start:\n{e}")
-        except Exception:
-            # If the GUI isn't available, fall back to stderr
-            print(f"Fatal Error: Application failed to start: {e}", file=sys.stderr)
+        messagebox.showerror("Fatal Error", f"Application failed to start: {str(e)}")
 
 
 if __name__ == "__main__":
