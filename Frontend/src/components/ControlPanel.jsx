@@ -3,13 +3,17 @@ import React from 'react';
 const ControlPanel = ({
   playerName,
   setPlayerName,
+  onPlayerNameBlur,
   guess,
   setGuess,
+  onGuessBlur,
   onSubmit,
   onNewRound,
   onShowStats,
   isProcessing,
-  currentRound
+  currentRound,
+  playerNameError,
+  guessError
 }) => {
   const handleKeyPress = (e, action) => {
     if (e.key === 'Enter') {
@@ -19,7 +23,7 @@ const ControlPanel = ({
 
   return (
     <div className="control-panel">
-      <h2 className="panel-title">Traffic Flow Challenge</h2>
+      <h2 className="panel-title">Traffic simulation Problem</h2>
 
       <div className="input-section">
         <label className="input-label">
@@ -29,27 +33,46 @@ const ControlPanel = ({
             value={playerName}
             onChange={(e) => setPlayerName(e.target.value)}
             onKeyPress={(e) => handleKeyPress(e, () => document.getElementById('guess-input').focus())}
+            onBlur={(e) => {
+              onPlayerNameBlur(e.target.value);
+            }}
             placeholder="Enter your name"
-            className="input-field"
+            className={`input-field ${playerNameError ? 'input-error' : ''}`}
             disabled={isProcessing}
             maxLength={50}
           />
+          {playerNameError && (
+            <span className="error-message" role="alert">{playerNameError}</span>
+          )}
         </label>
 
         <label className="input-label">
           <span className="label-text">Maximum Flow (A → T):</span>
           <input
             id="guess-input"
-            type="number"
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
             value={guess}
             onChange={(e) => setGuess(e.target.value)}
-            onKeyPress={(e) => handleKeyPress(e, onSubmit)}
-            placeholder="Enter your guess"
-            className="input-field"
+            onKeyPress={(e) => {
+              // Only allow numbers
+              if (!/[0-9]/.test(e.key) && e.key !== 'Enter' && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'Tab') {
+                e.preventDefault();
+              } else {
+                handleKeyPress(e, onSubmit);
+              }
+            }}
+            onBlur={(e) => {
+              onGuessBlur(e.target.value);
+            }}
+            placeholder="Enter your guess (numbers only)"
+            className={`input-field ${guessError ? 'input-error' : ''}`}
             disabled={isProcessing}
-            min="0"
-            max="1000"
           />
+          {guessError && (
+            <span className="error-message" role="alert">{guessError}</span>
+          )}
         </label>
       </div>
 
