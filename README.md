@@ -5,7 +5,7 @@ This is a small Python project implementing the "Traffic simulation Problem".
 
 Features:
 - Random-capacity directed traffic network (capacities 5–15).
-- UI (Tkinter) that draws the graph and asks the player to guess the max flow from A → T.
+- draws the graph and asks the player to guess the max flow from A → T.
 - Two independent max-flow algorithms: Edmonds–Karp and Dinic (implemented from scratch).
 - Times each algorithm and records data in a normalized SQLite database.
 - Unit tests for algorithms.
