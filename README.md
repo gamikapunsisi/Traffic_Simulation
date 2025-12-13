@@ -22,6 +22,9 @@ How to run:
 3. Run tests:
    python -m unittest tests/test_maxflow.py
 
+4 . check SQLLite DB Table:
+      python view_db.py
+
 Database:
 - The DB file `traffic_game.db` is created in the working directory.
 - Schema:
