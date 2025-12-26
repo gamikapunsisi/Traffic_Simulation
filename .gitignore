@@ -34,8 +34,8 @@ dist/
 .cache/
 
 # Tkinter app output screenshots or temp files
-*.png
-*.jpg
+# *.png
+# *.jpg
 
 # SQLite or local DB files
 *.db
