@@ -16,8 +16,15 @@ How to run:
    source venv/bin/activate
    pip install -r requirements.txt
 
+<<<<<<< Updated upstream
 2. Run the app:
    python app.py
+=======
+## 🎮 Gameplay Preview
+![Game Preview](screenshots/game.png)
+![Game Preview](screenshots/game2.png)
+
+>>>>>>> Stashed changes
 
 3. Run tests:
    python -m unittest tests/test_maxflow.py
