@@ -1,7 +1,8 @@
 ```markdown
-# Traffic Simulation Game (Python)
+# 🚦 Traffic Simulation Game (Python)
 
-This is a small Python project implementing the "Traffic simulation Problem".
+An interactive Python game that challenges players to **guess the maximum traffic flow**
+in a randomly generated network — using **real max-flow algorithms** and **performance tracking**.
 
 Features:
 - Random-capacity directed traffic network (capacities 5–15).
