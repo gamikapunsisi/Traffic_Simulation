@@ -5,9 +5,31 @@
 ![License](https://img.shields.io/github/license/gamikapunsisi/Traffic_Simulation)
 ![Stars](https://img.shields.io/github/stars/gamikapunsisi/Traffic_Simulation?style=social)
 
+## 🎮 Gameplay Preview
+![Game Preview](screenshots/game.png)
+
+## 🚀 Demo
+![Demo](demo.gif)
+
+
 
 An interactive Python game that challenges players to **guess the maximum traffic flow**
 in a randomly generated network — using **real max-flow algorithms** and **performance tracking**.
+
+## 🎯 Why This Project?
+
+- Learn max-flow algorithms visually
+- Compare Edmonds–Karp vs Dinic performance
+- Practice algorithm benchmarking
+- Demonstrates clean database normalization (3NF)
+
+## 👨‍🎓 Who Is This For?
+
+- Computer Science students
+- Algorithm learners
+- Python developers
+- Game-based learning enthusiasts
+
 
 Features:
 - Random-capacity directed traffic network (capacities 5–15).
@@ -41,4 +63,9 @@ Database:
 Notes:
 - Validation: player name required, guess must be a non-negative integer.
 - Exception handling: validation errors shown to user; algorithm/DB exceptions appended to results area.
+
+
+⭐ GitHub: https://github.com/gamikapunsisi/Traffic_Simulation
+
+
 ```
