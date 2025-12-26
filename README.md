@@ -13,6 +13,9 @@
 ## 🎮 Gameplay Preview
 ![Game Preview](screenshots/game.png)
 
+![Game Preview](screenshots/game2.png)
+
+
 ## 🚀 Demo
 ![Demo](demo.gif)
 
