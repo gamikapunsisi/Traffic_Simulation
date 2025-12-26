@@ -1,6 +1,11 @@
 ```markdown
 # 🚦 Traffic Simulation Game (Python)
 
+![Python](https://img.shields.io/badge/Python-3.9+-blue)
+![License](https://img.shields.io/github/license/gamikapunsisi/Traffic_Simulation)
+![Stars](https://img.shields.io/github/stars/gamikapunsisi/Traffic_Simulation?style=social)
+
+
 An interactive Python game that challenges players to **guess the maximum traffic flow**
 in a randomly generated network — using **real max-flow algorithms** and **performance tracking**.
 
